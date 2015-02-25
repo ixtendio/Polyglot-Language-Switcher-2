@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Ixtendo;
  * Licensed under the MIT license */
 
- angular.module('polyglotLanguageSwitcher', [])
+angular.module('polyglotLanguageSwitcher', [])
     .directive('pls', ['$document', '$timeout', function ($document, $timeout) {
         return {
             restrict: 'E',
@@ -30,7 +30,12 @@
                 var documentClickHandler = function () {
                     closePopup();
                     $scope.$apply();
-                    return false;
+                };
+                var documentKeyHandler = function (evt) {
+                    if (evt.keyCode === 27) {
+                        closePopup();
+                        $scope.$apply();
+                    }
                 };
 
                 var prepareModel = function () {
@@ -71,6 +76,7 @@
                         $scope.$emit('pls.popupOpening', {id: $scope.id});
                         $scope.model.opened = true;
                         $document.on('click', documentClickHandler);
+                        $document.on('keydown', documentKeyHandler);
                         $scope.$emit('pls.popupOpened', {id: $scope.id});
                     }
                     return false;
@@ -80,6 +86,7 @@
                     if ($scope.model.opened) {
                         $scope.$emit('pls.popupClosing', {id: $scope.id});
                         $document.off('click', documentClickHandler);
+                        $document.off('keydown', documentKeyHandler);
                         $scope.model.opened = false;
                         $scope.$emit('pls.popupClosed', {id: $scope.id});
                     }
@@ -134,10 +141,10 @@
                 var template = '<div class="polyglot-language-switcher ng-polyglot-language-switcher">';
                 if ($scope.openMode === 'hover') {
                     template += '<a class="pls-selected-locale" href="#" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
-                    '<div class="pls-language-container-outer" data-ng-show="model.opened" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)">';
+                    '<div class="pls-language-container-scrollable" data-ng-show="model.opened" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)">';
                 } else if ($scope.openMode === 'click') {
                     template += '<a class="pls-selected-locale" href="#" data-ng-click="onClick($event)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
-                    '<div class="pls-language-container-outer" data-ng-show="model.opened">';
+                    '<div class="pls-language-container-scrollable" data-ng-show="model.opened">';
                 }
                 template += '<table class="pls-language-container"><tbody><tr>' +
                 '<td data-ng-repeat="column in model.columns"><ul>' +

@@ -36,10 +36,17 @@
                     break;
                 case 'opened':
                     settings._model.status = 'opened';
+                    var $popup = $(evt.target);
                     if (!settings._model.documentClickHandler) {
-                        var $popup = $(evt.target);
                         settings._model.documentClickHandler = $(document).on('click', function (e) {
                             if ($(e.target).closest($popup).length === 0) {
+                                closePopup($popup, settings);
+                            }
+                        });
+                    }
+                    if (!settings._model.documentKeyHandler) {
+                        settings._model.documentKeyHandler = $(document).on('keydown', function (e) {
+                            if (e.keyCode === 27) {
                                 closePopup($popup, settings);
                             }
                         });
@@ -56,6 +63,10 @@
                         $(document).off('click', settings._model.documentClickHandler);
                         settings._model.documentClickHandler = null;
                     }
+                    if (settings._model.documentKeyHandler) {
+                        $(document).off('keydown', settings._model.documentKeyHandler);
+                        settings._model.documentKeyHandler = null;
+                    }
                     $invoker.trigger($.Event('popupClosed', {target: evt.target, invoker: invoker}));
                     break;
 
@@ -67,7 +78,7 @@
             var animEffect = settings.animEffect;
             var gridColumns = getSetting(settings, 'gridColumns');
             var selectedLang = getSetting(settings, 'selectedLang');
-            var $popup = $('<div class="pls-language-container-outer"><table class="pls-language-container"><tbody><tr></tr></tbody></table></div>').hide();
+            var $popup = $('<div class="pls-language-container-scrollable"><table class="pls-language-container"><tbody><tr></tr></tbody></table></div>').hide();
             if (animEffect === 'slide') {
                 $popup.slideUp(0);
             }
@@ -139,11 +150,12 @@
 
         var addEventsListeners = function (settings) {
             var invoker = settings._model.invoker;
-            var $popup = $(invoker).children('.pls-language-container-outer');
+            var $popup = $(invoker).children('.pls-language-container-scrollable');
             var openMode = getSetting(settings, 'openMode');
             if (openMode === 'click') {
                 $(invoker).children('a').on('click', function () {
                     openPopup($popup, settings);
+                    return false;
                 });
             } else if (openMode === 'hover') {
                 var hoverTimeout = getSetting(settings, 'hoverTimeout');
@@ -181,7 +193,8 @@
                     invoker: invoker,
                     status: 'closed',
                     closePopupTimeout: -1,
-                    documentClickHandler: null
+                    documentClickHandler: null,
+                    documentKeyHandler: null
                 }
             }, $.fn.polyglotLanguageSwitcher.defaults, getOptions(this, options));
             buildUI(settings);

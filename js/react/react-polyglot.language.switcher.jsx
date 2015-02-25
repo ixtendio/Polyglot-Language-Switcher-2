@@ -59,6 +59,13 @@
         this.setState({popupOpened: false});
         this._processEvent({id: 'onPopupClosed'});
     },
+    _documentKeyHandler: function (evt) {
+        if(evt.keyCode === 27) {
+            this._processEvent({id: 'onPopupClosing'});
+            this.setState({popupOpened: false});
+            this._processEvent({id: 'onPopupClosed'});
+        }
+    },
     _processEvent: function (evt) {
         var onPopupOpeningProp = this.props.onPopupOpening;
         var onPopupOpenedProp = this.props.onPopupOpened;
@@ -72,11 +79,13 @@
             }
         } else if (evt.id === 'onPopupOpened') {
             jQuery(document).on('click', this._documentClickHandler);
+            jQuery(document).on('keydown', this._documentKeyHandler);
             if (onPopupOpenedProp) {
                 onPopupOpenedProp(this);
             }
         } else if (evt.id === 'onPopupClosing') {
             jQuery(document).off('click', this._documentClickHandler);
+            jQuery(document).off('keydown', this._documentKeyHandler);
             if (onPopupClosingProp) {
                 onPopupClosingProp(this);
             }
@@ -204,7 +213,7 @@
                 popupStyles.display = 'none';
             }
             if (openMode === 'hover') {
-                return <div className="pls-language-container-outer" style={popupStyles} onMouseEnter={_this._onHover.bind(_this, true)} onMouseLeave={_this._onHover.bind(_this, false)}>
+                return <div className="pls-language-container-scrollable" style={popupStyles} onMouseEnter={_this._onHover.bind(_this, true)} onMouseLeave={_this._onHover.bind(_this, false)}>
                     <table className="pls-language-container">
                         <tbody>
                             <tr>{getTableColumns()}</tr>
@@ -212,7 +221,7 @@
                     </table>
                 </div>;
             } else {
-                return <div className="pls-language-container-outer" style={popupStyles}>
+                return <div className="pls-language-container-scrollable" style={popupStyles}>
                     <table className="pls-language-container">
                         <tbody>
                             <tr>{getTableColumns()}</tr>

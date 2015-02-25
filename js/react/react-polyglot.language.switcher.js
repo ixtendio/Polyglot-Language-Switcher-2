@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Ixtendo;
  * Licensed under the MIT license */
 
- var PolyglotLanguageSwitcher = React.createClass({displayName: "PolyglotLanguageSwitcher",
+var PolyglotLanguageSwitcher = React.createClass({displayName: "PolyglotLanguageSwitcher",
     propTypes: {
         items: React.PropTypes.array.isRequired,
         openMode: React.PropTypes.string,
@@ -59,6 +59,13 @@
         this.setState({popupOpened: false});
         this._processEvent({id: 'onPopupClosed'});
     },
+    _documentKeyHandler: function (evt) {
+        if(evt.keyCode === 27) {
+            this._processEvent({id: 'onPopupClosing'});
+            this.setState({popupOpened: false});
+            this._processEvent({id: 'onPopupClosed'});
+        }
+    },
     _processEvent: function (evt) {
         var onPopupOpeningProp = this.props.onPopupOpening;
         var onPopupOpenedProp = this.props.onPopupOpened;
@@ -72,11 +79,13 @@
             }
         } else if (evt.id === 'onPopupOpened') {
             jQuery(document).on('click', this._documentClickHandler);
+            jQuery(document).on('keydown', this._documentKeyHandler);
             if (onPopupOpenedProp) {
                 onPopupOpenedProp(this);
             }
         } else if (evt.id === 'onPopupClosing') {
             jQuery(document).off('click', this._documentClickHandler);
+            jQuery(document).off('keydown', this._documentKeyHandler);
             if (onPopupClosingProp) {
                 onPopupClosingProp(this);
             }
@@ -204,7 +213,7 @@
                 popupStyles.display = 'none';
             }
             if (openMode === 'hover') {
-                return React.createElement("div", {className: "pls-language-container-outer", style: popupStyles, onMouseEnter: _this._onHover.bind(_this, true), onMouseLeave: _this._onHover.bind(_this, false)},
+                return React.createElement("div", {className: "pls-language-container-scrollable", style: popupStyles, onMouseEnter: _this._onHover.bind(_this, true), onMouseLeave: _this._onHover.bind(_this, false)},
                     React.createElement("table", {className: "pls-language-container"},
                         React.createElement("tbody", null,
                             React.createElement("tr", null, getTableColumns())
@@ -212,7 +221,7 @@
                     )
                 );
             } else {
-                return React.createElement("div", {className: "pls-language-container-outer", style: popupStyles},
+                return React.createElement("div", {className: "pls-language-container-scrollable", style: popupStyles},
                     React.createElement("table", {className: "pls-language-container"},
                         React.createElement("tbody", null,
                             React.createElement("tr", null, getTableColumns())
