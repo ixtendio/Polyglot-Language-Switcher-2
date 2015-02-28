@@ -1,6 +1,12 @@
 # Polyglot Language Switcher 2
 
-The Polyglot Language Switcher plugin allows you easily switch between the languages supported by your website. 
+Polyglot Language Switcher is a JavaScript component which allows you to display  a popup with the languages supported by your website. 
 
-It was conceived as a drop-down menu with or without flag icons.
+This component has 3 implementations:
+
+-jQuery Plugin
+-AngularJS Directive
+-ReactJS Component
+
+Information about its usage and configuration can be found here: http://www.ixtendo.com/polyglot-language-switcher-2/.
 
