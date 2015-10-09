@@ -78,14 +78,14 @@
                 onPopupOpeningProp(this);
             }
         } else if (evt.id === 'onPopupOpened') {
-            jQuery(document).on('click', this._documentClickHandler);
-            jQuery(document).on('keydown', this._documentKeyHandler);
+            document.addEventListener('click', this._documentClickHandler);
+            document.addEventListener('keydown', this._documentKeyHandler);
             if (onPopupOpenedProp) {
                 onPopupOpenedProp(this);
             }
         } else if (evt.id === 'onPopupClosing') {
-            jQuery(document).off('click', this._documentClickHandler);
-            jQuery(document).off('keydown', this._documentKeyHandler);
+            document.removeEventListener('click', this._documentClickHandler);
+            document.removeEventListener('keydown', this._documentKeyHandler);
             if (onPopupClosingProp) {
                 onPopupClosingProp(this);
             }
