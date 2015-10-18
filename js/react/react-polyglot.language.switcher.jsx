@@ -169,12 +169,12 @@
                 }
                 if (showFlagsProp) {
                     liElements.push(<li>
-                        <a href="#" className={selectedItemClass} title={item.title} onClick={_this._onLanguageSelected.bind(_this, item)}>
+                        <a className={selectedItemClass} title={item.title} onClick={_this._onLanguageSelected.bind(_this, item)}>
                             <img src={item.flagImg} alt={item.flagTitle}/> {item.name}</a>
                     </li>);
                 } else {
                     liElements.push(<li>
-                        <a href="#" className={selectedItemClass} title={item.title} onClick={_this._onLanguageSelected.bind(_this, item)}> {item.name}</a>
+                        <a className={selectedItemClass} title={item.title} onClick={_this._onLanguageSelected.bind(_this, item)}> {item.name}</a>
                     </li>);
                 }
                 if (((i + 1) % langPerColumn) === 0) {
@@ -201,9 +201,9 @@
                 flagEl = <img src={selectedLang.flagImg} alt={selectedLang.flagTitle}/>;
             }
             if (openMode === 'hover') {
-                return <a className="pls-selected-locale" href="#" onMouseEnter={_this._onHover.bind(_this, true)} onMouseLeave={_this._onHover.bind(_this, false)} >{flagEl} {selectedLang.name}</a>;
+                return <a className="pls-selected-locale" onMouseEnter={_this._onHover.bind(_this, true)} onMouseLeave={_this._onHover.bind(_this, false)} >{flagEl} {selectedLang.name}</a>;
             } else {
-                return <a className="pls-selected-locale" href="#" onClick={_this._onClick} >{flagEl} {selectedLang.name}</a>;
+                return <a className="pls-selected-locale" onClick={_this._onClick} >{flagEl} {selectedLang.name}</a>;
             }
         };
 

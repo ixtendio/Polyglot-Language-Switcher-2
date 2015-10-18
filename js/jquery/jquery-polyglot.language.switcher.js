@@ -1,4 +1,4 @@
-/*! Polyglot Language Switcher 2 - v1.0.0 - 2015-02-20
+/*! @license Polyglot Language Switcher 2 - v1.0.0 - 2015-02-20
  * https://github.com/ixtendo/Polyglot-Language-Switcher-2/
  *
  * Copyright (c) 2015 Ixtendo;
@@ -93,7 +93,7 @@
                 var $a = $li.children('a');
                 var lang = $a.data('langId');
                 if (selectedLang === lang) {
-                    $selectedLang = $a.addClass('pls-selected-locale').clone().attr('href', '#');
+                    $selectedLang = $a.addClass('pls-selected-locale').clone();
                 }
                 columnLanguages.push($li);
                 if (((index + 1) % langPerColumn) === 0) {
@@ -109,7 +109,7 @@
 
             if (!$selectedLang) {
                 var $firstLi = $languages.first();
-                $selectedLang = $firstLi.children('a').addClass('pls-selected-locale').clone().attr('href', '#');
+                $selectedLang = $firstLi.children('a').addClass('pls-selected-locale').clone();
             }
             $(invoker).empty().append($selectedLang).append($popup);
         };
