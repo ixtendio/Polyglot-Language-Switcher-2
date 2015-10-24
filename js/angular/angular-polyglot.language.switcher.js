@@ -140,16 +140,16 @@ angular.module('polyglotLanguageSwitcher', [])
             template: function (context, $scope) {
                 var template = '<div class="polyglot-language-switcher ng-polyglot-language-switcher">';
                 if ($scope.openMode === 'hover') {
-                    template += '<a class="pls-selected-locale" href="#" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
+                    template += '<a class="pls-selected-locale" href="" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
                     '<div class="pls-language-container-scrollable" data-ng-show="model.opened" data-ng-mouseenter="onMouseEnterOrLeave(true)" data-ng-mouseleave="onMouseEnterOrLeave(false)">';
                 } else if ($scope.openMode === 'click') {
-                    template += '<a class="pls-selected-locale" href="#" data-ng-click="onClick($event)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
+                    template += '<a class="pls-selected-locale" href="" data-ng-click="onClick($event)"><img data-ng-if="model.showFlag" data-ng-src="{{model.selectedLang.flagImg}}" alt="{{model.selectedLang.flagTitle}}"> {{model.selectedLang.name}}</a>' +
                     '<div class="pls-language-container-scrollable" data-ng-show="model.opened">';
                 }
                 template += '<table class="pls-language-container"><tbody><tr>' +
                 '<td data-ng-repeat="column in model.columns"><ul>' +
                 '<li data-ng-repeat="item in column">' +
-                '<a href="#" title="{{item.title}}" data-ng-click="onLanguageChanged($event, item)" data-ng-class="item.selected? \'pls-selected-locale\':\'\'"><img data-ng-if="model.showFlag" data-ng-src="{{item.flagImg}}" alt="{{item.flagTitle}}"> {{item.name}}</a>' +
+                '<a href="" title="{{item.title}}" data-ng-click="onLanguageChanged($event, item)" data-ng-class="item.selected? \'pls-selected-locale\':\'\'"><img data-ng-if="model.showFlag" data-ng-src="{{item.flagImg}}" alt="{{item.flagTitle}}"> {{item.name}}</a>' +
                 '</li>' +
                 '</ul></td>' +
                 '</tr></tbody></table>' +
