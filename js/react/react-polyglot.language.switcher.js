@@ -1,4 +1,4 @@
-/*! Polyglot Language Switcher 2 - v1.0.0 - 2015-02-20
+/*! @license Polyglot Language Switcher 2 - v1.0.0 - 2015-02-20
  * https://github.com/ixtendo/Polyglot-Language-Switcher-2/
  *
  * Copyright (c) 2015 Ixtendo;
@@ -78,14 +78,14 @@ var PolyglotLanguageSwitcher = React.createClass({displayName: "PolyglotLanguage
                 onPopupOpeningProp(this);
             }
         } else if (evt.id === 'onPopupOpened') {
-            jQuery(document).on('click', this._documentClickHandler);
-            jQuery(document).on('keydown', this._documentKeyHandler);
+            document.addEventListener('click', this._documentClickHandler);
+            document.addEventListener('keydown', this._documentKeyHandler);
             if (onPopupOpenedProp) {
                 onPopupOpenedProp(this);
             }
         } else if (evt.id === 'onPopupClosing') {
-            jQuery(document).off('click', this._documentClickHandler);
-            jQuery(document).off('keydown', this._documentKeyHandler);
+            document.removeEventListener('click', this._documentClickHandler);
+            document.removeEventListener('keydown', this._documentKeyHandler);
             if (onPopupClosingProp) {
                 onPopupClosingProp(this);
             }
@@ -169,12 +169,12 @@ var PolyglotLanguageSwitcher = React.createClass({displayName: "PolyglotLanguage
                 }
                 if (showFlagsProp) {
                     liElements.push(React.createElement("li", null,
-                        React.createElement("a", {href: "#", className: selectedItemClass, title: item.title, onClick: _this._onLanguageSelected.bind(_this, item)},
+                        React.createElement("a", {className: selectedItemClass, title: item.title, onClick: _this._onLanguageSelected.bind(_this, item)},
                             React.createElement("img", {src: item.flagImg, alt: item.flagTitle}), " ", item.name)
                     ));
                 } else {
                     liElements.push(React.createElement("li", null,
-                        React.createElement("a", {href: "#", className: selectedItemClass, title: item.title, onClick: _this._onLanguageSelected.bind(_this, item)}, " ", item.name)
+                        React.createElement("a", {className: selectedItemClass, title: item.title, onClick: _this._onLanguageSelected.bind(_this, item)}, " ", item.name)
                     ));
                 }
                 if (((i + 1) % langPerColumn) === 0) {
@@ -201,9 +201,9 @@ var PolyglotLanguageSwitcher = React.createClass({displayName: "PolyglotLanguage
                 flagEl = React.createElement("img", {src: selectedLang.flagImg, alt: selectedLang.flagTitle});
             }
             if (openMode === 'hover') {
-                return React.createElement("a", {className: "pls-selected-locale", href: "#", onMouseEnter: _this._onHover.bind(_this, true), onMouseLeave: _this._onHover.bind(_this, false)}, flagEl, " ", selectedLang.name);
+                return React.createElement("a", {className: "pls-selected-locale", onMouseEnter: _this._onHover.bind(_this, true), onMouseLeave: _this._onHover.bind(_this, false)}, flagEl, " ", selectedLang.name);
             } else {
-                return React.createElement("a", {className: "pls-selected-locale", href: "#", onClick: _this._onClick}, flagEl, " ", selectedLang.name);
+                return React.createElement("a", {className: "pls-selected-locale", onClick: _this._onClick}, flagEl, " ", selectedLang.name);
             }
         };
 
